@@ -1,7 +1,7 @@
 import json
 
-from cherche.app import db, Teacher
-from cherche.data import teachers
+from app import db, Teacher
+from data import teachers
 
 
 def load_db():
