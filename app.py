@@ -147,7 +147,9 @@ def post_book():
     rendez_vous = str(ru_days[day] + ", " + time)
     bkng = Booking(name=name, phone=phone, teacher_id=int(request.form.get("clientTeacher")))
     db.session.add(bkng)
-    json.loads(db.session.query(Teacher).get_or_404(int(request.form.get("clientTeacher"))).free)[day][time] = False
+    new = json.loads(db.session.query(Teacher).get_or_404(int(request.form.get("clientTeacher"))).free)
+    new[day][time] = False
+    db.session.query(Teacher).get_or_404(int(request.form.get("clientTeacher"))).free = json.dumps(new)
     db.session.commit()
     return render_template("booking_done.html", name=name, phone=phone, date=rendez_vous)
 
